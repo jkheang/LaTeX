@@ -4,9 +4,9 @@
 \usepackage{tikz}
 \usepackage{comment}
 \usepackage{amssymb}
+\usepackage[margin=0.75in]{geometry}
 
-
-\title{Technical Report}
+\title{Technical Report: MAE 373}
 \author{Jacky Kheang\\Jaylie Arelana Galang\\Andres Zazueta\\Elizabeth Brown\\Joseph Chin}
 \date{8th of May, 2019}
 \begin{document}
@@ -14,6 +14,7 @@
 \maketitle
 \end{titlepage}
 
+%%%free body diagram%%%%
 Here is the diagram we are tasked with analyzing:
 \newline
 
@@ -31,6 +32,7 @@ $E=100 GPa\\
 \alpha=\frac{10^{-5}}{Cº}$
 \pagebreak
 
+%%%equations%%%
 Some necessary assumptions to make before we analyze the free body diagram is that there is no thermal stress associated with thermal strain. Thermal stress is a result of the loading condition. In this particular situation, a statically indeterminate body will result in thermal stress. The necessary equations and relations we employed will be listed below and referred to throughout the documentation.
 \newline
 
@@ -66,13 +68,12 @@ Deformation due to thermal expansion:
 \delta_{thermal} = \alpha \cdot \Delta T \cdot L
 \end{equation}
 $\alpha$ is the thermal expansion coefficient, $\Delta T$ is the change in temperature, and $L$ is the length of the body.
-\pagebreak
 
 Poissons's Ratio:
 \begin{equation} \label{poisson}
-\nu=\frac{-\epsilon_{y}}{\epsilon_{x}}
+\nu=\frac{-\epsilon_{y}}{\epsilon_{x}} = \frac{-\epsilon_{z}}{\epsilon_{x}}
 \end{equation}
-Poisson's ratio is a material property that is given but will be important because during thermal expansion, deformation occurs in multiple directions.
+Poisson's ratio is a material property that is given but will be important because during thermal expansion, deformation occurs in three directions: x, y, and z.
 \newline
 
 Stress-Strain relationship:\\
@@ -81,6 +82,8 @@ We can come to this relationship by looking at equation \ref{strain} and substit
 \begin{center}
 $\epsilon = \frac{\delta}{L_{º}} = \frac{\frac{PL}{EA}}{L_{º}}$
 \end{center}
+\pagebreak
+
 $L$ cancels, which will give:
 \newline
 \begin{center}
@@ -104,9 +107,17 @@ Recall in equation \ref{stress} the relation for stress. By substituting $\frac{
 \begin{equation} \label{thermal_stress}
 \sigma_{thermal} = E \cdot  \alpha \cdot \Delta T
 \end{equation}
+Another important set of equations to know are the static equilibrium equations:
+\begin{gather*}
+F_{x} = 0\\
+F_{y} = 0\\
+F_{z} = 0\\
+\Sigma M = 0
+\end{gather*}
 Now that we have the necessary equations and relations, we may begin to analyze the structure.
 \pagebreak
 
+%%%first part of the problem%%%
 The first part of the problem is when $\Delta = 0.3 mm$
 \newline
 
@@ -136,18 +147,25 @@ The total deformation is calculated using equation 8
 =0.2015 mm
 \end{gather*}
 
-Because $\delta_{total}$ is less than $\Delta$, we can calculate strain using equation 2:
+Because $\delta_{total}$ is less than $\Delta$, we can calculate strain in the x direction using equation 2:
 \begin{gather*}
 \epsilon_{total} = \frac{\delta_{total}}{L_{º}}\\
 =201.5 \cdot 10^{-6}
+\end{gather*}
+
+Due to the Poisson's ratio, we can find strain in y and z using equation 5:
+\begin{gather*}
+(201.5 \cdot 10^{-6})(0.25) =- \epsilon_{z} = -\epsilon_{y}\\
+-50.375 \cdot 10^{-6}
 \end{gather*}
 
 Total stress at $A$ can be found using equation 1
 \begin{gather*}
 \sigma = \frac{10 kN}{200 \cdot 200 mm^{2}} = 2.5 \cdot 10^{-4} GPa
 \end{gather*}
-\pagebreak
+\newline
 
+%%%second part%%%
 Next, we will analyze when $\Delta = 0.2mm$
 \newline
 
@@ -155,49 +173,75 @@ $\delta_{total}$ was calculated to be 0.2015mm which is greater than 0.2mm. This
 \begin{gather} 
 \epsilon^{'} = \frac{0.0015 mm}{1000mm} = 1.5 \cdot 10^{-6}
 \end{gather}
-However, because this body cannot deform any more due to it's constraints horizontally, we must consider the Poisson Effect: when a material is under compression, it will expand perpendicularly to the force. We can calculate this vertical strain using equation 5 as so:
-\begin{gather}
-0.25 = \frac{-\epsilon_{y}}{\epsilon_{x}}
-\end{gather}
+However, because this body cannot deform any more due to it's horizontal constraints, we must use the super-position method referenced in the above figure and remove the constraint and replace it with an equivalent reaction force.
 
-We set $\epsilon^{'} = -\epsilon_{x}$ in equation 10 to find the strain in y-component.
+\begin{figure}[h!]
+	\includegraphics[width=100mm]{ZZZ.png}
+\end{figure}
+
+To find strain in the x-direction, we will use equation 2. Because total deformation is constrained, $\delta$ will be equal to $\Delta$.
 \begin{gather*}
-(0.25)(1.5 \cdot 10^{-6}) = 375 \cdot 10^{-9}
+\epsilon_{x} = \frac{0.2 mm}{1000 mm} = 200 \cdot 10^{-6}
 \end{gather*}
-
-To find the strain on the bar in the x-component can be calculated using equation 2, with $\delta = \Delta$ due to constraints.
-\begin{gather} 
-\epsilon_{x} = \frac{\Delta}{L_{º}} = 200 \cdot 10^{-6}
-\end{gather}
-
-In order to find the stress in point A, we must refer to equation 7.
+In order to find strain in the $z$ and $y$ direction, we must use Poisson's ratio(equation 5). Because it is not constrained in these directions, we can use the actual strain in $x$. 
 \begin{gather*}
-\sigma_{thermal} = E \cdot \alpha \cdot \Delta T 
-= 100 GPa \cdot \frac{10^{-5}}{C^{º}} \cdot 20 ^{º}C\\
-=0.2GPa
+0.25 = \frac{-\epsilon_{y}}{201.5 \cdot 10^{-6}}\\
+=-50.375 \cdot 10^{-6}
+\end{gather*}
+Because the beam is homogenous and isotropic: $\epsilon_{y} = \epsilon_{z}$
+\newline
+In order to find stress at A, we must calculate the reactionary forces due to the constraints as shown in the diagram. We will consider the displacement due to the compressive thermal stress as $\delta^{'}$. However, we cannot solve for the reactionary forces through statics alone; we must use complementary equations:
+\begin{gather*}
+\Delta = \delta_{total} + \delta^{'}\\
+0.2 mm = 0.2015 mm + \delta^{'}\\
+\delta^{'} = -0.0015 mm
 \end{gather*}
 \pagebreak
 
+From here we will use equation 2 to solve for the force with $\delta^{'}$ and R being the reactionary compressive force:
+\begin{gather*} 
+\delta^{'} = \frac{RL}{EA}\\
+-0.0015 mm = \frac{R \cdot 1000mm}{100 GPa \cdot 200^{2} mm^{2}}
+\end{gather*}
+Solve for R
+\begin{gather*}
+\therefore R = -6 kN
+\end{gather*}
+To solve for stress at A we create a cross section at A, resolve the internal force and then use equation 1:
+%%%put picture here%%%
+\begin{gather*}
+\sigma = 150 \cdot 10^{-6} GPa
+\end{gather*}
+
+%%%third part%%%
 Our last loading condition is when $\Delta = 0.1mm$
 \newline
 
-We will use the same approach as the last problem due to the deformation of the material being statically indeterminate. We will take the difference of $\Delta$ and $\delta$ and use it find the "negative" strain which in turn will allow us to find the strain in the vertical component using Poisson's Ratio:
-\begin{gather} 
-\delta_{imaginary} = \delta - \Delta = .1015\\
--\epsilon_{x} = \frac{.1015}{1000} = 101 \cdot 10^{-6}\\
-\nu = \frac{\epsilon_{y}}{-\epsilon_{x}}
-(0.25) \cdot (101 \cdot 10^{-6}) = \epsilon_{y} = 23.375 \cdot 10^{-6}
-\end{gather}
-
-To find strain in the horizontal we use $\Delta$ in equation 2:
+We will use the same approach as the last problem due to the deformation of the material being statically indeterminate. To find horizontal strain we will use equation 2 with $\Delta = \delta$ like so:
 \begin{gather*}
-\epsilon_{x} = \frac{0.1}{1000} = 100 \cdot 10^{-6}
+\epsilon_{x} = \frac{0.1 mm}{1000mm} = 
 \end{gather*}
 
+To find strain in $z$ and $y$, we will use Poisson's ratio:
+\begin{gather*}
+0.25 = \frac{-\epsilon_{y}}{201.5 \cdot 10^{-6}}\\
+=-50.375 \cdot 10^{-6}
+\end{gather*}
+Because the beam is homogenous and isotropic: $\epsilon_{y} = \epsilon_{z}$
+\newline
 
-
-
-
-
+To find stress at A, we will employ the same method of super-position as used when $\Delta = 0.2mm$.
+\begin{gather*}
+\delta^{'} = \frac{RL}{EA}\\
+-1.015 = \frac{R \cdot 1000mm}{100 GPa \cdot 200^{2} mm^{2}}
+\end{gather*}
+Solve for R
+\begin{equation*}
+\therefore R=
+\end{equation*}
+By creating a cross section at A and resolving the internal forces we get:
+\begin{equation*}
+\sigma = 
+\end{equation*}
 
 \end{document}
